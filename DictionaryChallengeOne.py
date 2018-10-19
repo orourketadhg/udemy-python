@@ -41,4 +41,3 @@ while True:
     else:
         # not a valid direction
         print("you cannot go in that direction")
-
