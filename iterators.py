@@ -2,11 +2,13 @@
 #
 # # for char in string:
 # #     print(char)
-#
+# # creates new iterator
 # my_iterator = iter(string)
 #
+# # prints location of iterator object in memory
 # print(my_iterator)
 #
+# iterates to next value
 # print(next(my_iterator))
 # print(next(my_iterator))
 #
@@ -17,6 +19,8 @@
 # # what is happening in the background of the for loop
 # for char in iter(string):
 #     print(char)
+
+# mini challenge
 
 # Create a list of items (you may use either strings or numbers in the list)
 # then create an iterator using the iter() function.

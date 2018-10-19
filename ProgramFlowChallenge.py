@@ -1,3 +1,5 @@
+#Challenge
+#
 # Create a program that takes an IP address entered at the keyboard
 # and prints out the number of segments it contains, and the length of each segment.
 #

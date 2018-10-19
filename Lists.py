@@ -1,13 +1,18 @@
+# #syntax for a list of strings
 # parrotList = ["not pinin", "no more", "bereft of life"]
 #
+# # print string and iterative values inside list
 # for state in parrotList:
 #     print("this parrot is " + state)
 #
 # #
 even = [2, 4, 6, 8]
 odd = [1, 3, 5, 7, 9]
-# #
+#
+# # concatenates 2 list together
 # # number = even + odd
+#
+# # sorting list items
 #
 # # will not work
 # # print(number.sort())
@@ -37,10 +42,11 @@ another_even = even
 # This will create a new list not liked to even
 another_even = list(even)
 
+# in reverse order
 another_even.sort(reverse=True)
 print(even)
 
-
+# list of lists
 numbers = [even, odd]
 
 # prints the contents of numbers

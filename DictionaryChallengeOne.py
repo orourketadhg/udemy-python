@@ -1,3 +1,5 @@
+# Challenge
+
 # modify the program so that the exits are a dictionary instead of a list
 # with the keys being the numbers of the locations and the values being
 # dictionaries holding the exits (as they present). No change should be
