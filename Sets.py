@@ -30,10 +30,31 @@
 # emptySet = set()
 
 evenByTwo = set(range(0, 40, 2))
-# print(even)
+print(evenByTwo)
+
+evenByFive = set(range(0, 40, 5))
+print(evenByFive)
 
 # Union
-evenByFour = set(range(0, 40, 4))
-
-unionTwoFour = evenByTwo.union(evenByFour)
+# returns a set of all the values in both evenByTwo and evenByFive
+unionTwoFour = evenByTwo.union(evenByFive)
 print(unionTwoFour)
+
+# Intersection
+# returns a set of only values that are in both evenByTwo and evenByFive
+intersectionTwoFive = evenByTwo.intersection(evenByFive)
+print(intersectionTwoFive)
+
+# returns True/False if a set is a subset
+setIsSubset = evenByTwo.issubset(evenByFive)
+print(setIsSubset)
+
+# set subtraction
+# takes one set from another (i.e removes the common values of one set from another)
+# returns a set of values that contain only values not in another set
+Set1 = evenByTwo.difference(evenByFive)
+print(sorted(Set1))
+
+
+
+
