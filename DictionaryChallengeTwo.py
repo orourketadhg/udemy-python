@@ -41,14 +41,18 @@ vocabulary = {"QUIT": "Q",
 
 loc = 1
 while True:
+    # location[loc]["exits"] will access a sub dictionaries key - .key will access a 3rd nested dictionaries key.
     availableExits = ", ".join(locations[loc]["exits"].keys())
 
+    # print location[loc]["desc"]'s values - print "desc"'s value
     print(locations[loc]["desc"])
 
     if loc == 0:
         break
     else:
+        # copy location[loc]["exits"]'s data (keys and values)
         allExits = locations[loc]["exits"].copy()
+        # update allExits with locations[loc]["namedExits"]'s data (keys and values)
         allExits.update(locations[loc]["namedExits"])
 
     direction = input("Available exits are " + availableExits + ": ").upper()
