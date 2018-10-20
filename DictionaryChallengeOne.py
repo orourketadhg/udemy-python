@@ -23,11 +23,22 @@ exits = {0: {"Q": 0},  # Quit
          4: {"N": 1, "W": 2, "Q": 0},  # north or west
          5: {"W": 2, "S": 1, "Q": 0}}  # south or west
 
+# adding in location names as options for the input
+namedExits = {1: {"2": 2, "3": 3, "4": 4, "5": 5},
+              2: {"5": 5},
+              3: {"1": 5},
+              4: {"1": 1, "2": 2},
+              5: {"2": 2, "1": 1}}
+
 Directions = {"Quit": "Q", "quit": "Q",  # Quit options
               "North": "N", "north": "N",  # North options
               "East": "E", "east": "E",  # East options
               "South": "S", "south": "S",  # South options
-              "West": "W", "west": "W"}  # West options
+              "West": "W", "west": "W",
+              "Road": "1",
+              "Hill": "2",
+              "Building": "3",
+              "Valley": ""}  # West options
 
 
 loc = 1
@@ -39,6 +50,11 @@ while True:
     # if Q is entered break out of game
     if loc == 0:
         break
+    else:
+        # creates a copy of exits[at current location]
+        allExits = exits[loc].copy()
+        # adds namedExits to copy
+        allExits.update(namedExits[loc])
 
     # set Direction equal to you input
     direction = input("Avaliable exits are " + "  " + availableExits.upper() + ": ")
@@ -63,13 +79,15 @@ while True:
                 break
 
     # if direction valid, set loc to when you are going
-    if direction in exits[loc]:
+    if direction in allExits:
         # loc set to loc (0-4) and what that represents in locations
-        loc = exits[loc][direction]
+        loc = allExits[direction]
 
     else:
         # not a valid direction
         print("you cannot go in that direction")
+
+
 
 # more efficient code way this Challenge
 
