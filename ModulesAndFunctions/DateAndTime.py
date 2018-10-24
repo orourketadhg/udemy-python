@@ -9,6 +9,7 @@ print(time.gmtime(0))
 # data relating to local time based on computer time and date
 print(time.localtime())
 # prints the number of seconds since epoch
+# can have problems with day light savings and system time drift
 print(time.time())
 
 time_here = time.localtime()
@@ -47,3 +48,19 @@ print(end_time)
 
 # print time difference
 print(end_time - start_time)
+
+# perf_counter()
+# records the preform time
+perf = time.perf_counter()
+print(perf)
+
+# monotonic()
+# similar to perf_counter
+# adjustments to system clock and day light savings will not affect this
+
+mono = time.monotonic()
+print(perf)
+
+# process_time()
+# returns time that a process takes rather than system time
+print(time.process_time())
