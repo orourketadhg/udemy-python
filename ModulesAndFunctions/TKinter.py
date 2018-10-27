@@ -27,6 +27,7 @@ leftFrame.pack(side='left', anchor='n', fill=tkinter.Y, expand=False)
 
 
 # adds a canvas () to the screen, that is raised and has a border of 1
+# relief - is the box 3D and is it coming out or going in to the GUI
 canvas = tkinter.Canvas(leftFrame, relief='raised', borderwidth=1)
 
 # Expand must be used if not on its relative side ( top/bottom - Y expand, right/left - X expand)
