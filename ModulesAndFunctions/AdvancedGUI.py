@@ -5,16 +5,21 @@ mainWindow = tkinter.Tk()
 
 mainWindow.title("Grid Demo")
 mainWindow.geometry('640x480-8-200')
+mainWindow['padx'] = 8
 
 label = tkinter.Label(mainWindow, text="TKinter Grid Demo")
 label.grid(row=0, column=0, columnspan=3)
 
 # set row and column weights
-mainWindow.columnconfigure(0, weight=1)
+# weight alters the relationship/location if altering window size
+# low weight if widgets are above/below so they stay in a good place
+# listbox only real benefit of having a high weight
+# horizontal weights will affect scroll bar -- give it a very low weight relative
+mainWindow.columnconfigure(0, weight=100)
 mainWindow.columnconfigure(1, weight=1)
-mainWindow.columnconfigure(2, weight=3)
-mainWindow.columnconfigure(3, weight=3)
-mainWindow.columnconfigure(4, weight=3)
+mainWindow.columnconfigure(2, weight=1000)
+mainWindow.columnconfigure(3, weight=600)
+mainWindow.columnconfigure(4, weight=1000)
 mainWindow.rowconfigure(0, weight=1)
 mainWindow.rowconfigure(1, weight=10)
 mainWindow.rowconfigure(2, weight=1)
@@ -101,7 +106,7 @@ timeFrame['padx'] = 36
 # Date Spinners
 # Frame
 dateFrame = tkinter.LabelFrame(mainWindow, text='Date')
-dateFrame.grid(row=3, column=2, sticky='nsew')
+dateFrame.grid(row=4, column=0, sticky='nsew')
 
 # Spinners
 daySpinner = tkinter.Spinbox(dateFrame, width=2, from_=0, to=31)
@@ -117,6 +122,15 @@ tkinter.Label(dateFrame, text='Year:').grid(row=0, column=4)
 yearSpinner.grid(row=0, column=5)
 
 dateFrame['padx'] = 25
+
+
+
+# Buttons
+okButton = tkinter.Button(mainWindow, text='ok')
+# command preforms an action - quit in this case, destroy is a better option
+cancelButton = tkinter.Button(mainWindow, text='cancel', command=mainWindow.quit)
+okButton.grid(row=4, column=3, sticky='e')
+cancelButton.grid(row=4, column=4, sticky='w')
 
 
 mainWindow.mainloop()
