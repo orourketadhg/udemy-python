@@ -102,6 +102,44 @@ mainWindow = tkinter.Tk()
 
 # masterClass version
 
+# list of lists
+keys = [[('C', 1), ('CE', 1)],
+        [('7', 1), ('8', 1), ('9', 1), ('+', 1)],
+        [('4', 1), ('5', 1), ('6', 1), ('-', 1)],
+        [('1', 1), ('2', 1), ('3', 1), ('*', 1)],
+        [('0', 1), ('=', 1), ('/', 1)]]
+
+mainWindowPadding = 8
+
+mainWindow.title("Calculator")
+mainWindow.geometry('640x480-8-200')
+mainWindow['padx'] = mainWindowPadding
+
+result = tkinter.Entry(mainWindow)
+result.grid(row=0, column=0, sticky='nsew')
+
+keypad = tkinter.Frame(mainWindow)
+keypad.grid(row=1, column=0, sticky='nsew')
+
+# for loop to add buttons
+row = 0
+# row loop
+for keyRow in keys:
+    col = 0
+    # col loop
+    for key in keyRow:
+        # creates new button
+        #  sticky=tkinter.E + tkinter.W - fills the width of its cell
+        tkinter.Button(keypad, text=key[0]).grid(row=row, column=col, columnspan=key[1], sticky=tkinter.E + tkinter.W)
+        col += key[1]
+    row += 1
+
+
+mainWindow.update()
+# sets the smallest to be(keypad frame width + 8)(the keypad frame height + result frame)
+mainWindow.minsize(keypad.winfo_width() + mainWindowPadding, result.winfo_height() + keypad.winfo_height())
+# having both mix and max makes it so it can only be one size
+mainWindow.maxsize(keypad.winfo_width() + mainWindowPadding + 50, result.winfo_height() + keypad.winfo_height() + 50)
 
 mainWindow.mainloop()
 
