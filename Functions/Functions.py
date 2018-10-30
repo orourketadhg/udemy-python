@@ -14,26 +14,34 @@ def center_txt(*args, sep=' ', end='\n', file=None, flush=False):
     # will cast to a string
     # text = str(text)
     text = ''
+
     # handles the multiple arguments that would be passed as parameters
     for arg in args:
         text += str(arg) + sep
 
     left_margin = (80 - len(text)) // 2
+
     # Note: end=,file=,flush= are part of print() while the data being assigned are the defaults from this function
-    print(" " * left_margin, text, end=end, file=file, flush=flush)
+    # print(" " * left_margin, text, end=end, file=file, flush=flush)
+
+    # returning data spereated by commas will return a list of those values
+    # return 1, 2
+    return " " * left_margin + text
 
 
 # call function
 python_food()
 
-# pass an arguments
-center_txt('Eggs and spam')
-center_txt('This is a test message')
-# center_txt(str(8))
+# # pass an arguments
+# center_txt('Eggs and spam')
+# center_txt('This is a test message')
+# # center_txt(str(8))
+#
+# # sends a single string
+# center_txt("one, two, 3, 4, five")
+# # sends multiple parameters
+# center_txt("one", "two", 3, 4, "five", sep=';')
 
-# sends a single string
-center_txt("one, two, 3, 4, five")
-# sends multiple parameters
-center_txt("one", "two", 3, 4, "five", sep=';')
-
-
+print(center_txt("test", "message", 1, 2, "3"))
+v1 = center_txt("test", "message", 1, 2, "3")
+print(v1)
