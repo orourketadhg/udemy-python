@@ -12,10 +12,11 @@ def parabola(plot_canvas, size):
     # return z
 
 
-def circle (page, radius, g=0, h=0):
+# generate circles
+def circle(page, radius, g=0, h=0):
     for x in range(g, g + radius):
         y = h + (math.sqrt(radius ** 2 - ((x-g) ** 2)))
-        # create 4 parabolas each quadrant
+        # create 4 parabolas each 1/4 of the circle
         plot(page, x, y)
         plot(page, x, 2 * h - y)
         plot(page, 2 * g - x, y)
