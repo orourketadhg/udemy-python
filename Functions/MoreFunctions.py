@@ -12,15 +12,25 @@ def parabola(plot_canvas, size):
     # return z
 
 
+# Mini Challenge
+# modify the circle function so that the colour of the circle to be specified
+# and defaults to red if a colour is not given.
+
 # generate circles
-def circle(page, radius, g=0, h=0):
-    for x in range(g, g + radius):
-        y = h + (math.sqrt(radius ** 2 - ((x-g) ** 2)))
-        # create 4 parabolas each 1/4 of the circle
-        plot(page, x, y)
-        plot(page, x, 2 * h - y)
-        plot(page, 2 * g - x, y)
-        plot(page, 2 * g - x, 2 * h - y)
+def circle(page, radius, g=0, h=0, colour="red"):
+    # for x in range(g * 100, (g + radius) * 100):
+    #     # plots 100 times more points - makes the program slower.
+    #     x /= 100
+    #     print(x)
+    #     y = h + (math.sqrt(radius ** 2 - ((x-g) ** 2)))
+    #     # create 4 parabolas each 1/4 of the circle
+    #     plot(page, x, y)
+    #     plot(page, x, 2 * h - y)
+    #     plot(page, 2 * g - x, y)
+    #     plot(page, 2 * g - x, 2 * h - y)
+
+    # built-in tkinter method
+    page.create_oval(g + radius, h + radius, g - radius, h - radius, outline=colour, width=2)
 
 
 # move origin to center of canvas -- default is left top
@@ -70,7 +80,7 @@ draw_axis(canvas)
 parabola(canvas, 300)
 parabola(canvas, 200)
 
-circle(canvas, 100, 100, 100)
+circle(canvas, 100, 100, 100, "yellow")
 circle(canvas, 100)
 
 mainWindow.mainloop()
