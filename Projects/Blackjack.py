@@ -1,8 +1,6 @@
 import random
 import tkinter
 
-mainWindow = tkinter.Tk()
-
 
 def load_images(card_images):
     suits = ["heart", "club", "diamond", "spade"]
@@ -29,8 +27,8 @@ def load_images(card_images):
 
 def deal_card(frame):
     # pop card off top of shuffled deck
-    # pop retrieves and removes an item from a list
-    next_card = deck.pop()
+    # pop retrieves and removes an item from a list - 0 for top of deck
+    next_card = deck.pop(0)
     # add image to screen
     tkinter.Label(frame, image=next_card[1], relief='raised').pack(side='left')
     # return value of card
@@ -42,11 +40,28 @@ def deal_dealer():
 
 
 def deal_player():
-    deal_card(playerCardFrame)
+    PlayerScore = 0
+    card_value = deal_card(playerCardFrame)[0]
 
+    if card_value == 1 and not PlayerAce:
+        card_value = 11
+
+    PlayerScore += card_value
+
+    if PlayerScore > 21 and PlayerAce:
+        PlayerScore -= 10
+
+    PlayerScoreLabel.set(PlayerScore)
+
+    if PlayerScore > 21:
+        result_Text.set("Dealer Wins")
+
+
+mainWindow = tkinter.Tk()
 
 mainWindow.title("Blackjack")
 mainWindow.geometry("640x480")
+mainWindow.configure(background='green')
 
 # StringVar holds string variable that will be updated in the GUI if changed
 result_Text = tkinter.StringVar()
@@ -68,6 +83,10 @@ dealerCardFrame.grid(row=0, column=1, sticky="ew", rowspan=2)
 
 # Player
 PlayerScoreLabel = tkinter.IntVar()
+
+PlayerScore = 0
+PlayerAce = False
+
 tkinter.Label(cardFrame, text="Player", background="green", fg="white").grid(row=2, column=0)
 tkinter.Label(cardFrame, textvariable=PlayerScoreLabel, background="green", fg="white").grid(row=3, column=0)
 
