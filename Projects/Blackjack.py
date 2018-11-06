@@ -27,6 +27,24 @@ def load_images(card_images):
             card_images.append((10, image,))
 
 
+def deal_card(frame):
+    # pop card off top of shuffled deck
+    # pop retrieves and removes an item from a list
+    next_card = deck.pop()
+    # add image to screen
+    tkinter.Label(frame, image=next_card[1], relief='raised').pack(side='left')
+    # return value of card
+    return next_card
+
+
+def deal_dealer():
+    deal_card(dealerCardFrame)
+
+
+def deal_player():
+    deal_card(playerCardFrame)
+
+
 mainWindow.title("Blackjack")
 mainWindow.geometry("640x480")
 
@@ -45,7 +63,8 @@ tkinter.Label(cardFrame, text="Dealer", background="green", fg="white").grid(row
 tkinter.Label(cardFrame, textvariable=dealerScoreLabel, background="green", fg="white").grid(row=1, column=0)
 
 # dealer embedded frame to hold cards images
-dealerCardFrame = tkinter.Frame(cardFrame, background="green").grid(row=0, column=1, sticky="ew", rowspan=2)
+dealerCardFrame = tkinter.Frame(cardFrame, background="green")
+dealerCardFrame.grid(row=0, column=1, sticky="ew", rowspan=2)
 
 # Player
 PlayerScoreLabel = tkinter.IntVar()
@@ -53,14 +72,17 @@ tkinter.Label(cardFrame, text="Player", background="green", fg="white").grid(row
 tkinter.Label(cardFrame, textvariable=PlayerScoreLabel, background="green", fg="white").grid(row=3, column=0)
 
 # player embedded frame to hold cards images
-PlayerCardFrame = tkinter.Frame(cardFrame, background="green").grid(row=2, column=1, sticky="ew", rowspan=2)
+playerCardFrame = tkinter.Frame(cardFrame, background="green")
+playerCardFrame.grid(row=2, column=1, sticky="ew", rowspan=2)
 
 # Buttons
 ButtonFrame = tkinter.Frame(mainWindow)
 ButtonFrame.grid(row=3, column=0, columnspan=3, sticky="w")
 
-dealerButton = tkinter.Button(ButtonFrame, text="dealer").grid(row=0, column=0)
-PlayerButton = tkinter.Button(ButtonFrame, text="player").grid(row=0, column=1)
+dealerButton = tkinter.Button(ButtonFrame, text="dealer", command=deal_dealer)
+dealerButton.grid(row=0, column=0)
+PlayerButton = tkinter.Button(ButtonFrame, text="player", command=deal_player)
+PlayerButton.grid(row=0, column=1)
 
 cards = []
 load_images(cards)
@@ -72,6 +94,5 @@ random.shuffle(deck)
 
 dealerHand = []
 playerHand = []
-
 
 mainWindow.mainloop()
