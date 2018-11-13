@@ -36,32 +36,77 @@ def deal_card(frame):
 
 
 def deal_dealer():
-    deal_card(dealerCardFrame)
+    dealerHand.append(deal_card(dealerCardFrame))
+    dealer_score = score_hand(dealerHand)
+
+    dealerScoreLabel.set(dealer_score)
+    if dealer_score > 21:
+        result_Text.set("Player Wins")
 
 
 def deal_player():
-    PlayerScore = 0
-    card_value = deal_card(playerCardFrame)[0]
+    # # changing this to a global will now update the playerScore in game
+    # global PlayerScore
+    # global PlayerAce
+    # # player_score = 0
+    # card_value = deal_card(playerCardFrame)[0]
+    #
+    # if card_value == 1 and not PlayerAce:
+    #     card_value = 11
+    #     # change the value of a global var inside a function
+    #     # otherwise the global var will be converted to a local var
+    #     PlayerAce = True
+    #
+    # # PlayerScore += card_value
+    # #
+    # # if PlayerScore > 21 and PlayerAce:
+    # #     PlayerScore -= 10
+    # #     PlayerAce = False
+    #
+    # PlayerScoreLabel.set(PlayerScore)
+    #
+    # if PlayerScore > 21:
+    #     result_Text.set("Dealer Wins")
+    #
+    # if PlayerScore == 21:
+    #     result_Text.set("Player Blackjack")
+    #
+    # # will print out a list of all local variables
+    # print(locals())
 
-    if card_value == 1 and not PlayerAce:
-        card_value = 11
+    # Rewrite of deal_player to avoid global variables
 
-    PlayerScore += card_value
+    playerHand.append(deal_card(playerCardFrame))
+    player_score = score_hand(playerHand)
 
-    if PlayerScore > 21 and PlayerAce:
-        PlayerScore -= 10
-
-    PlayerScoreLabel.set(PlayerScore)
-
-    if PlayerScore > 21:
+    PlayerScoreLabel.set(player_score)
+    if player_score > 21:
         result_Text.set("Dealer Wins")
+
+
+def score_hand(hand):
+    # calculate the total score of all cards in the list
+    # only one ace can have the value of 11, and this will be reduced to 1 if the hand goes bust
+    score = 0
+    ace = False
+    for next_card in hand:
+        card_value = next_card[0]
+        if card_value == 1 and not ace:
+            ace = True
+            card_value = 11
+        score += card_value
+        # if bust, check if there is an ace
+        if score > 21 and ace:
+            score -= 10
+            ace = False
+    return score
 
 
 mainWindow = tkinter.Tk()
 
 mainWindow.title("Blackjack")
 mainWindow.geometry("640x480")
-mainWindow.configure(background='green')
+mainWindow.configure(background='white')
 
 # StringVar holds string variable that will be updated in the GUI if changed
 result_Text = tkinter.StringVar()
@@ -74,7 +119,7 @@ cardFrame.grid(row=1, column=0, sticky="ew", columnspan=3, rowspan=2)
 # IntVar like StringVar
 dealerScoreLabel = tkinter.IntVar()
 tkinter.Label(cardFrame, text="Dealer", background="green", fg="white").grid(row=0, column=0)
-# textvariable - changeable text variable
+# text-variable - changeable text variable
 tkinter.Label(cardFrame, textvariable=dealerScoreLabel, background="green", fg="white").grid(row=1, column=0)
 
 # dealer embedded frame to hold cards images
