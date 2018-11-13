@@ -38,11 +38,13 @@ def deal_card(frame):
 def deal_dealer():
     # deal cards to dealer
     dealer_score = score_hand(dealerHand)
+    # TODO: Fix incorrect update bug
     while 0 < dealer_score < 17:
         dealerHand.append(deal_card(dealerCardFrame))
         dealerScoreLabel.set(dealer_score)
         dealer_score = score_hand(dealerHand)
 
+    # TODO: fix dealer wins on losing hand bug
     player_score = score_hand(playerHand)
     if player_score > 21:
         result_Text.set("Dealer Bust, Player Wins!")
@@ -157,6 +159,9 @@ dealerButton = tkinter.Button(ButtonFrame, text="dealer", command=deal_dealer)
 dealerButton.grid(row=0, column=0)
 PlayerButton = tkinter.Button(ButtonFrame, text="player", command=deal_player)
 PlayerButton.grid(row=0, column=1)
+
+# TODO: add reset button
+# TODO: change dealer to only deal when player stuck
 
 cards = []
 load_images(cards)
