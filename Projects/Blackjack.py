@@ -134,19 +134,15 @@ def score_hand(hand):
 def generate_new_deck():
     global new_deck
 
-    deck_len = len(new_deck)
-
-    for card in range(0, deck_len):
-        try:
-            new_deck.remove(new_deck[card])
-        except IndexError:
-            break
-
-    # new_deck = list(cards)
-    # random.shuffle(new_deck)
+    new_deck = []
+    new_deck = list(cards)
+    random.shuffle(new_deck)
 
 
 def reset_game():
+    global playerHand
+    global dealerHand
+
     # reset text
     result_Text.set("Welcome to Blackjack!")
 
@@ -154,6 +150,10 @@ def reset_game():
     remove_cards(playerCardFrame, dealerCardFrame)
 
     # reset scores
+    playerHand = []
+    dealerHand = []
+    PlayerScoreLabel.set(score_hand(playerHand))
+    dealerScoreLabel.set(score_hand(dealerHand))
 
     # generate new deck
     generate_new_deck()
@@ -166,7 +166,7 @@ mainWindow = tkinter.Tk()
 
 mainWindow.title("Blackjack")
 mainWindow.geometry("640x480")
-mainWindow.configure(background='white')
+mainWindow.configure(background='green')
 
 # StringVar holds string variable that will be updated in the GUI if changed
 result_Text = tkinter.StringVar()
@@ -210,7 +210,6 @@ PlayerButton.grid(row=0, column=1)
 resetButton = tkinter.Button(ButtonFrame, text="New Game", command=reset_game)
 resetButton.grid(row=0, column=2)
 
-# TODO: add reset button
 # TODO: change dealer to only deal when player stuck
 
 result_Text.set("Welcome to Blackjack!")
