@@ -129,6 +129,21 @@ def score_hand(hand):
             ace = False
     return score
 
+# WHY WONT YOU WORK
+def generate_new_deck():
+    global new_deck
+
+    deck_len = len(new_deck)
+
+    for card in range(0, deck_len):
+        try:
+            new_deck.remove(new_deck[card])
+        except IndexError:
+            break
+
+    # new_deck = list(cards)
+    # random.shuffle(new_deck)
+
 
 def reset_game():
     # reset text
@@ -136,6 +151,12 @@ def reset_game():
 
     # delete old cards in player and dealer frames
     remove_cards(playerCardFrame, dealerCardFrame)
+
+    # reset scores
+
+
+    # generate new deck
+    generate_new_deck()
 
     # starter Cards after board has been cleared
     new_deal()
