@@ -109,7 +109,7 @@ def deal_player():
 
     PlayerScoreLabel.set(player_score)
     if player_score > 21:
-        result_Text.set("player Bust, Dealer Wins")
+        result_Text.set("Player Bust, Dealer Wins")
 
 
 def score_hand(hand):
@@ -130,10 +130,10 @@ def score_hand(hand):
     return score
 
 
-# WHY WONT YOU WORK
 def generate_new_deck():
     global new_deck
 
+    # empty the deck and generate a new deck
     new_deck = []
     new_deck = list(cards)
     random.shuffle(new_deck)
@@ -150,8 +150,10 @@ def reset_game():
     remove_cards(playerCardFrame, dealerCardFrame)
 
     # reset scores
+    # delete contents of hands - scores
     playerHand = []
     dealerHand = []
+    # update score
     PlayerScoreLabel.set(score_hand(playerHand))
     dealerScoreLabel.set(score_hand(dealerHand))
 
