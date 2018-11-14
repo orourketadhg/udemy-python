@@ -25,14 +25,30 @@ def load_images(card_images):
             card_images.append((10, image,))
 
 
+def new_deal():
+    # deals the starting cards at the start of a new game
+    deal_player()
+    dealerHand.append(deal_card(dealerCardFrame))
+    dealerScoreLabel.set(score_hand(dealerHand))
+    deal_player()
+
+
 def deal_card(frame):
     # pop card off top of shuffled deck
     # pop retrieves and removes an item from a list - 0 for top of deck
-    next_card = deck.pop(0)
+    next_card = new_deck.pop(0)
     # add image to screen
     tkinter.Label(frame, image=next_card[1], relief='raised').pack(side='left')
     # return value of card
     return next_card
+
+
+def remove_cards(player_frame, dealer_frame):
+    # removes the children from the frame
+    for widget in player_frame.winfo_children():
+        widget.destroy()
+    for widget in dealer_frame.winfo_children():
+        widget.destroy()
 
 
 def deal_dealer():
@@ -114,6 +130,17 @@ def score_hand(hand):
     return score
 
 
+def reset_game():
+    # reset text
+    result_Text.set("Welcome to Blackjack!")
+
+    # delete old cards in player and dealer frames
+    remove_cards(playerCardFrame, dealerCardFrame)
+
+    # starter Cards after board has been cleared
+    new_deal()
+
+
 mainWindow = tkinter.Tk()
 
 mainWindow.title("Blackjack")
@@ -159,24 +186,31 @@ dealerButton = tkinter.Button(ButtonFrame, text="dealer", command=deal_dealer)
 dealerButton.grid(row=0, column=0)
 PlayerButton = tkinter.Button(ButtonFrame, text="player", command=deal_player)
 PlayerButton.grid(row=0, column=1)
+resetButton = tkinter.Button(ButtonFrame, text="New Game", command=reset_game)
+resetButton.grid(row=0, column=2)
 
 # TODO: add reset button
 # TODO: change dealer to only deal when player stuck
+
+result_Text.set("Welcome to Blackjack!")
 
 cards = []
 load_images(cards)
 # print(cards)
 
-# create a new deck from cards + shuffle
-deck = list(cards)
-random.shuffle(deck)
+# deck = generate_deck(cards)
+new_deck = list(cards)
+random.shuffle(new_deck)
 
 dealerHand = []
 playerHand = []
 
-deal_player()
-dealerHand.append(deal_card(dealerCardFrame))
-dealerScoreLabel.set(score_hand(dealerHand))
-deal_player()
+# generate start cards
+new_deal()
+
+# deal_player()
+# dealerHand.append(deal_card(dealerCardFrame))
+# dealerScoreLabel.set(score_hand(dealerHand))
+# deal_player()
 
 mainWindow.mainloop()
