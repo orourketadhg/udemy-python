@@ -129,6 +129,7 @@ def score_hand(hand):
             ace = False
     return score
 
+
 # WHY WONT YOU WORK
 def generate_new_deck():
     global new_deck
@@ -153,7 +154,6 @@ def reset_game():
     remove_cards(playerCardFrame, dealerCardFrame)
 
     # reset scores
-
 
     # generate new deck
     generate_new_deck()
