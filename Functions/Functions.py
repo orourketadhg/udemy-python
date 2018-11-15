@@ -45,3 +45,9 @@ python_food()
 print(center_txt("test", "message", 1, 2, "3"))
 v1 = center_txt("test", "message", 1, 2, "3")
 print(v1)
+
+print(__name__)
+
+# will only print if this python file is run and not if another file importing this file runs this file -- imports
+if __name__ == '__main__':
+    print('Test')
