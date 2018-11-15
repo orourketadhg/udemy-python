@@ -10,7 +10,7 @@ def python_food():
 # expects a string
 # *[name] allows for multiple parameters to be past to a function
 # [name]='' - sets a default for a argument if not defined when passing as a parameter
-def center_txt(*args, sep=' ', end='\n', file=None, flush=False):
+def _center_txt(*args, sep=' ', end='\n', file=None, flush=False):
     # will cast to a string
     # text = str(text)
     text = ''
@@ -42,8 +42,8 @@ python_food()
 # # sends multiple parameters
 # center_txt("one", "two", 3, 4, "five", sep=';')
 
-print(center_txt("test", "message", 1, 2, "3"))
-v1 = center_txt("test", "message", 1, 2, "3")
+print(_center_txt("test", "message", 1, 2, "3"))
+v1 = _center_txt("test", "message", 1, 2, "3")
 print(v1)
 
 print(__name__)
