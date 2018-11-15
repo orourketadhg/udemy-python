@@ -32,10 +32,11 @@ listing = os.walk('.')
 
 
 def list_directories(s):
-
     # nested function
+    # rare to have any more than 1 deep nested functions
     def dir_list(d):
-        # will get a variable from the parent function - like global
+        # will get a variable from the parent functions - like global
+        # only use if no other option will work - can lead to bugs with scope
         nonlocal tab_stop
         files = os.listdir(d)
         for f in files:
@@ -56,6 +57,11 @@ def list_directories(s):
     else:
         print(s + " does not exist")
 
+
+# will print the same as globals contain locals
+print(locals())
+print(globals())
+# python will search for data in order of Local, Enclosing, Globals, Builtins (LEGB)
 
 # for root, directories, files in listing:
 #     print(root)
