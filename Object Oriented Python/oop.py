@@ -27,4 +27,11 @@ class Kettle(object):
         self.on = False
 
 
+Kenwood = Kettle("Kenwood", 120.00)
+# . notation is used to access things in a object
+print(Kenwood.price)
+print(Kenwood.make)
 
+# overwrites object variable price
+Kenwood.price = 119.99
+print(Kenwood.price)
