@@ -1,3 +1,9 @@
+"""
+This is a prototype blackjack game using tkinter as a GUI
+all images were found at http://svg-cards.sourceforge.net/
+These images follow a open-source licence agreement.
+
+"""
 import random
 import tkinter
 
