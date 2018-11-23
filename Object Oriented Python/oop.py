@@ -19,6 +19,9 @@ A = ClassName()
 
 class Kettle(object):
 
+    # a variable class attribute
+    power_source = "electricity"
+
     # init/the constructor class is a automatic method which will declare specified variables when a object is created
     # initialising passed variables common to all methods in a class
     # all other attributes must be initialised in order to be used in the class
@@ -29,6 +32,7 @@ class Kettle(object):
         self.price = price
         self.on = False
 
+    # a method class attribute
     # creating a method
     def switch_on(self):
         self.on = True
@@ -63,3 +67,17 @@ print(hamilton.on)
 # will create a data attribute only bound to a specific object
 hamilton.power = 1.5
 print(hamilton.power)
+
+print(Kettle.power_source)
+print(Kenwood.power_source)
+print(hamilton.power_source)
+
+# will change the class attribute for all objects of the class
+Kettle.power_source = "atomic"
+print(Kettle.power_source)
+print(Kenwood.power_source)
+
+# will print all attributes associated with an object
+print(Kettle.__dict__)
+# will print all the instance variables
+print(hamilton.__dict__)
