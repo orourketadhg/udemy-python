@@ -104,8 +104,57 @@ def load_data():
         for line in albums:
             artist_field, album_field, year_field, song_field = tuple(line.strip('\n').split('\t'))
             year_field = int(year_field)
-            print(artist_field, album_field, year_field, song_field)
+
+            # print(artist_field, album_field, year_field, song_field)
+
+            # if an artist object already exists - set as new_artist
+            if new_artist is None:
+                new_artist = Artist(artist_field)
+
+            # elif artist object doesn't already exist - create one
+            elif new_artist.name != artist_field:
+                # read new details for a new artist
+                new_artist.add_album(new_album)
+                artist_list.append(new_artist)
+                new_artist = Artist(artist_field)
+                new_album = None
+
+            # if an album object already exists - set as new_album
+            if new_album is None:
+                new_album = Album(album_field, year_field, new_artist)
+
+            # elif album object doesn't already exist - create one
+            elif new_album.name != album_field:
+                # read new album for current artist
+                new_artist.add_album(new_album)
+                new_album = Album(album_field, year_field, artist_field)
+
+            # create a new song object and add it to the current albums collection
+            new_song = Song(song_field, new_artist)
+            new_album.add_song(new_song)
+
+        # add artist to list
+        if new_artist is not None:
+            if new_album is not None:
+                new_artist.add_album(new_album)
+            artist_list.append(new_artist)
+
+    return artist_list
+
+
+def create_check_file(artist_list):
+    """Create a check file from the object data for comparison with the original file"""
+
+    with open("albums/checkfile.txt", "w") as checkfile:
+        for new_artist in artist_list:
+            for new_album in new_artist.albums:
+                for new_song in new_album.tracks:
+                    print("{0.name}\t{1.name}\t{1.year}\t{2.title}".format(new_artist, new_album, new_song), file=checkfile)
 
 
 if __name__ == '__main__':
-    load_data()
+    artist = load_data()
+
+    print("there are {} artists".format(len(artist)))
+
+    create_check_file(artist)
