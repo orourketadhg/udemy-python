@@ -21,3 +21,7 @@ print("test " * 5)
 
 # Returns True if it is contained IN the second string
 print("String" in "TestString")
+
+# printing raw strings
+string = r"Bloop \t\t Beep"
+print(string)
