@@ -3,21 +3,13 @@ class Song:
     
     Attributes:
         title (str): Title of song
-        artist (Artist): Artist object representing songs author
+        name (str): name of the artist
         duration (int): Duration of song in seconds (can be 0)
     """
 
-    def __init__(self, title, artist, duration=0):
-        """Song init method
-
-        Args:
-            title (str): Initialises the 'title' attribute
-            artist (Artist):  An Artist object representing songs author
-            duration (Optional [int]): Initial value of duration attribute.
-                Will default to zero if not specified
-        """
+    def __init__(self, title, name, duration=0):
         self.title = title
-        self.artist = artist
+        self.artist_name = name
         self.duration = duration
 
     def get_title(self):
@@ -36,7 +28,7 @@ class Album:
     Attributes:
         name (str): name of album
         year (int): year of release
-        artist (Artist): Artist object to represent artist
+        artist (str): Artist name to represent artist
             if not specified, artist will default to "Various Artists"
         tracks (list[Song]): List of songs on album
 
@@ -48,7 +40,7 @@ class Album:
         self.name = name
         self.year = year
         if artist is None:
-            self.artist = Artist("Various Artists")
+            self.artist = "Various Artists"
         else:
             self.artist = artist
 
@@ -58,8 +50,8 @@ class Album:
         """Adds a song to the track list
 
         Args:
-            song(Song): title of a song to add
-            position(Optional[int]): add song to specified position in track list
+            song (str): title of a song to add
+            position (Optional[int]): add song to specified position in track list
                 if not specified, will append to end
         """
 
@@ -100,7 +92,7 @@ class Artist:
         """
         self.albums.append(album)
 
-    def add_song(self, name, year, title):
+    def add_album_song(self, name, year, title):
         """Add a new song to the collection of albums
 
         This method will add a song to an album in the collection.
@@ -115,7 +107,7 @@ class Artist:
 
         if album_found is None:
             print(name + " not found")
-            album_found = Album(name, year, self)
+            album_found = Album(name, year, self.name)
             self.add_album(album_found)
         else:
             print("Found album " + name)
@@ -150,7 +142,7 @@ def load_data():
                 new_artist = Artist(artist_field)
                 artist_list.append(new_artist)
 
-            new_artist.add_song(album_field, year_field, song_field)
+            new_artist.add_album_song(album_field, year_field, song_field)
 
     return artist_list
 
