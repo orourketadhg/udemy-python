@@ -20,6 +20,11 @@ class Song:
         self.artist = artist
         self.duration = duration
 
+    def get_title(self):
+        return self.title
+
+    name = property(get_title)
+
 # will print the docstrings
 # help(Song.__init__)
 # print(Song.__doc__)
@@ -53,15 +58,20 @@ class Album:
         """Adds a song to the track list
 
         Args:
-            song(Song): a Song to add
+            song(Song): title of a song to add
             position(Optional[int]): add song to specified position in track list
                 if not specified, will append to end
         """
 
-        if position is None:
-            self.tracks.append(song)
-        else:
-            self.tracks.insert(position, song)
+        song_found = find_object(song, self.tracks)
+
+        if song_found is None:
+            song_found = Song(song, self.artist)
+
+            if position is None:
+                self.tracks.append(song_found)
+            else:
+                self.tracks.insert(position, song_found)
 
 
 class Artist:
@@ -69,7 +79,7 @@ class Artist:
 
     Arguments:
         name (str): name of srtist
-        albums (List[Ablum]): A list of the artists albums
+        albums (List[Album]): A list of the artists albums
             the list includes only those albums in this collection, it is
             not an exhaustive list of the artists published work
 
