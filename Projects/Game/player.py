@@ -38,6 +38,15 @@ class Player(object):
     lives = property(_get_lives, _set_lives)
     level = property(_get_level, _set_level)
 
+    # alternative syntax
+    @property
+    def score(self):
+        return self._score
+
+    @score.setter
+    def score(self, score):
+        self._score = score
+
     # a default method to print information, when an object is printed
     def __str__(self):
         return "Name: {0.name}, Lives: {0.lives}, Level: {0.level}, Score: {0._score}".format(self)

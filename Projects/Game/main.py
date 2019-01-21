@@ -19,3 +19,10 @@ print(player_1)
 
 player_1.level -= 2
 print(player_1)
+
+player_1.lives -= 1
+player_1.level -= 1
+print(player_1)
+
+player_1.score = 500
+print(player_1)
