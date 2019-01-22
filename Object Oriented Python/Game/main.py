@@ -1,6 +1,7 @@
 from player import Player
 from enemy import Enemy, Troll, Vampyre
 
+
 player_1 = Player("Tadhg")
 
 zombie = Enemy("Zombie", 5, 1)

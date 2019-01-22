@@ -1,3 +1,6 @@
+import random
+
+
 # class Enemy:
 class Enemy(object):
 
@@ -46,3 +49,15 @@ class Vampyre(Enemy):
 
     def __init__(self, name):
         super().__init__(name=name, lives=3, hit_points=12)
+
+    def dodge(self):
+        if random.randint(1, 3) == 3:
+            print("{0.name}: Dodged the attack".format(self))
+            return True
+        else:
+            return False
+
+    # method overriding
+    def take_damage(self, damage):
+        if not self.dodge():
+            super().take_damage(damage)
