@@ -15,8 +15,15 @@ print(zombie)
 # zombie.take_damage(6)
 # print(zombie)
 
-troll_1 = Troll("Og", 10, 3)
+# instantiating a subclass method
+troll_1 = Troll("Og")
 print(troll_1)
 
-troll_2 = Troll("Bog", 10, 4)
+troll_2 = Enemy("Bog", 10, 1)
 print(troll_2)
+
+# using a subclasses methods
+troll_1.grunt()
+
+# as troll 2 is not a Troll object it cannot use the sub classes methods
+# troll_2.grunts()

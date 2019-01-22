@@ -20,4 +20,13 @@ class Enemy(object):
 
 # sub class of Enemy - Troll inherits from Enemy - Inheritance
 class Troll(Enemy):
-    pass
+
+    def __init__(self, name):
+        # Python 2 way of doing super class inheritance
+        # Enemy.__init__(self, name=name, lives=2, hit_points=15)
+        # Python 3 version
+        super().__init__(name=name, lives=2, hit_points=15)
+
+    # only a Troll subclass object can use this method
+    def grunt(self):
+        print("{0.name}: Grunts".format(self))
