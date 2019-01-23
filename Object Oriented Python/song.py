@@ -70,7 +70,7 @@ class Artist:
     """Class to store artists details
 
     Arguments:
-        name (str): name of srtist
+        name (str): name of artist
         albums (List[Album]): A list of the artists albums
             the list includes only those albums in this collection, it is
             not an exhaustive list of the artists published work
