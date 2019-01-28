@@ -87,3 +87,16 @@ if __name__ == '__main__':
     my_page.add_body_tag('p', 'test paragraph')
     with open("test.html", 'w') as test_doc:
         my_page.display(file=test_doc)
+
+# example of aggregation
+new_body = Body()
+new_body.add_tag('h1', 'aggregation')
+new_body.add_tag('p', "Unlike <strong>Composition</strong>, aggregation uses existing instances"
+                      "of an object to build up another object")
+new_body.add_tag('p', "The composed object doesn't actually own the objects it comprised of"
+                      " - if it's destroyed, those objects continue to exist.")
+
+# given out document new content by switching it's body
+my_page._body = new_body
+with open('test2.html', 'w') as test_doc:
+    my_page.display(file=test_doc)
