@@ -23,6 +23,17 @@ class Head(Tag):
 
     def __init__(self):
         super().__init__('head', '')
+        self._head_contents = []
+
+    def add_tag(self, name, contents):
+        new_tag = Tag(name, contents)
+        self._head_contents.append(new_tag)
+
+    def display(self, file=None):
+        for tag in self._head_contents:
+            self.contents += str(tag)
+
+        super().display(file=file)
 
 
 # inheritance from Tag - not a subclass but a override of Tag methods
@@ -53,20 +64,26 @@ class HtmlDoc(object):
         self._head = Head()
         self._body = Body()
 
-    def add_tag(self, name, contents):
+    def add_head_tag(self, name, contents):
+        self._head.add_tag(name, contents)
+
+    def add_body_tag(self, name, contents):
         self._body.add_tag(name, contents)
 
     def display(self, file=None):
+        # display file - expecting a html file
         self._doc_type.display(file=file)
-        print('<html>')
+        print('<html>', file=file)
         self._head.display(file=file)
         self._body.display(file=file)
-        print('</html>')
+        print('</html>', file=file)
 
 
 if __name__ == '__main__':
     my_page = HtmlDoc()
-    my_page.add_tag('h1', 'main header')
-    my_page.add_tag('h2', 'sub header')
-    my_page.add_tag('p', 'test paragraph')
-    my_page.display()
+    my_page.add_head_tag('title', 'Title of page')
+    my_page.add_body_tag('h1', 'main header')
+    my_page.add_body_tag('h2', 'sub header')
+    my_page.add_body_tag('p', 'test paragraph')
+    with open("test.html", 'w') as test_doc:
+        my_page.display(file=test_doc)
