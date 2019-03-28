@@ -9,7 +9,7 @@ cities = ["Dublin", "Cork", "Galway"]
 cities2 = []
 
 # open city file read
-with open("D:\Programming\Python\FileIO\Cities.txt", 'r') as city_file:
+with open("D:/Programming/Python/FileIO/Cities.txt", 'r') as city_file:
     for city in city_file:
         # append a stripped of escape characters string to list
         cities2.append(city.strip())
