@@ -51,15 +51,37 @@ class Flock(object):
     def __init__(self):
         self.flock = []
 
+    # TYPE HINTS :
     # expecting object of type duck
     # expecting to return None
     def add_duck(self, duck: Duck) -> None:
-        self.flock.append(duck)
+        # check type - not pythonic
+        # if isinstance(duck, Duck):
+
+        # check to see if object has a 'fly' method
+        fly_method = getattr(duck, 'fly', None)
+
+        # if it does add to flock
+        if callable(fly_method):
+            self.flock.append(duck)
+        else:
+            raise TypeError("Must be of type Duck")
 
     def migrate(self):
-        for duck in self.flock:
-            duck.fly()
+        problem = None
 
+        for duck in self.flock:
+            # dealing with exceptions
+            try:
+                duck.fly()
+            #    store exception
+            except AttributeError as ex:
+                problem = ex
+                print("One duck Down")
+                # raise
+
+        if problem:
+            raise problem
 
 # def test_duck(duck):
 #     duck.walk()
