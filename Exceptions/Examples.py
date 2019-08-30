@@ -23,9 +23,21 @@ def factorial(n):
 try:
     print(factorial(30))
     print(factorial(999))
-# if a recursion error is raised while attempting to run try clause, it will stop and run the exception clause
-except (RecursionError, ZeroDivisionError):
-    print("Factorial too large or cannot divide by zero")
 
-# except ZeroDivisionError:
-#     print("Cannot divide by zero")
+# if a recursion error is raised while attempting to run try clause, it will stop and run the exception clause
+# except (RecursionError, ZeroDivisionError):
+#     print("Factorial too large or cannot divide by zero")
+
+except RecursionError:
+    print("Factorial too large")
+
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+
+# will execute if try clause is executed without any problems - must be after exception clauses
+else:
+    print("all actions preformed successfully")
+
+# will always execute - must be final statement
+finally:
+    print("Always executes")
