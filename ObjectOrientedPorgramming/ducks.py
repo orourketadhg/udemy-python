@@ -32,6 +32,7 @@ class Duck(object):
         # using a class objects methods
         self._wing.fly()
 
+
 class Penguin(object):
 
     def walk(self):
@@ -44,6 +45,20 @@ class Penguin(object):
         print("penguin: I don't quack")
 
 
+# demonstrating raising exceptions
+class Flock(object):
+
+    def __init__(self):
+        self.flock = []
+
+    def add_duck(self, duck):
+        self.flock.append(duck)
+
+    def migrate(self):
+        for duck in self.flock:
+            duck.fly()
+
+
 # def test_duck(duck):
 #     duck.walk()
 #     duck.swim()
@@ -53,7 +68,6 @@ class Penguin(object):
 if __name__ == "__main__":
     donald = Duck()
     donald.fly()
-
 
     # # apparently python thinks billy is a duck
     # billy = Penguin()
