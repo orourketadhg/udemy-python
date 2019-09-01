@@ -27,8 +27,12 @@ class Account(object):
     @staticmethod
     def _current_time():
         return pytz.utc.localize(datetime.datetime.utcnow())
+
         # local_time = pytz.utc.localize(datetime.datetime.utcnow())
         # return local_time.astimezone()
+
+        # testing primary keys
+        # return 1
 
     def __init__(self, name: str, bal: int = 0.0):
         cursor = db.execute("SELECT name, balance FROM Accounts WHERE (name = ?)", (name,))
@@ -79,15 +83,22 @@ class Account(object):
     def _save_update(self, amount):
         deposit_time = self._current_time()
 
-        # update database tables
-        db.execute("UPDATE Accounts SET balance = ? where (name = ?)", (amount, self.name))
-        db.execute("INSERT INTO History VALUES (?, ?, ?)", (deposit_time, self.name, amount))
+        # protecting updates
+        # attempt updates - rollback if error - update class attribute if it works - then commit
+        try:
+            # update database tables
+            db.execute("UPDATE Accounts SET balance = ? where (name = ?)", (amount, self.name))
+            db.execute("INSERT INTO History VALUES (?, ?, ?)", (deposit_time, self.name, amount))
+        except sqlite3.Error:
+            db.rollback()
+        else:
+            db.commit()
 
-        # commit changes
-        db.commit()
+            # update class attribute
+            self._balance = amount
 
-        # update class attribute
-        self._balance = amount
+        # finally:
+        #    db.commit()
 
 
 if __name__ == '__main__':
