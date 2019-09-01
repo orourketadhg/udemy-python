@@ -10,17 +10,19 @@ __date__ = "01/09/2019"
 
 
 import sqlite3
+import datetime
+import pytz
 
 db = sqlite3.connect("Accounts.sqlite")
 db.execute("CREATE TABLE IF NOT EXISTS Accounts (name TEXT PRIMARY KEY NOT NULL , balance INTEGER NOT NULL)")
-db.execute("CREATE TABLE IF NOT EXISTS Transactions (time TIMESTAMP NOT NULL, account TEXT NOT NULL, "
+db.execute("CREATE TABLE IF NOT EXISTS History (time TIMESTAMP NOT NULL, account TEXT NOT NULL, "
            "amount INTEGER NOT NULL, PRIMARY KEY (time, account))")
 
 
 class Account(object):
 
     def __init__(self, name: str, bal: int = 0.0):
-        cursor = db.execute("SELECT name, balance FROM accounts WHERE (name = ?)", (name,))
+        cursor = db.execute("SELECT name, balance FROM Accounts WHERE (name = ?)", (name,))
         row = cursor.fetchone()
 
         if row:
@@ -29,7 +31,7 @@ class Account(object):
         else:
             self.name = name
             self._balance = bal
-            cursor.execute("INSERT INTO accounts VALUES (?, ?)", (name, bal))
+            cursor.execute("INSERT INTO Accounts VALUES (?, ?)", (name, bal))
             cursor.connection.commit()
             print("New account {} with €{}".format(self.name, self._balance))
 
@@ -37,7 +39,21 @@ class Account(object):
 
     def deposit(self, amount: int) -> float:
         if amount > 0.0:
-            self._balance += amount / 100
+            # self._balance += amount / 100
+
+            new_balance = self._balance + amount
+            deposit_time = pytz.utc.localize(datetime.datetime.utcnow())
+
+            # update database tables
+            db.execute("UPDATE Accounts SET balance = ? where (name = ?)", (new_balance, self.name))
+            db.execute("INSERT INTO History VALUES (?, ?, ?)", (deposit_time, self.name, amount))
+
+            # commit changes
+            db.commit()
+
+            # update class attribute
+            self._balance = new_balance
+
             print("deposited €{:.2f}".format(amount / 100))
         return self._balance / 100
 
@@ -54,10 +70,10 @@ class Account(object):
 
 
 if __name__ == '__main__':
-    john = Account("Tim")
-    john.deposit(5230)
-    john.show_balance()
-    john.withdraw(7480)
-    john.show_balance()
-
-
+    Tim = Account("Tim")
+    Tim.deposit(5200)
+    Tim.deposit(52)
+    Tim.deposit(100)
+    Tim.show_balance()
+    Tim.withdraw(748)
+    Tim.show_balance()
