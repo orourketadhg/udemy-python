@@ -21,6 +21,10 @@ db.execute("CREATE TABLE IF NOT EXISTS History (time TIMESTAMP NOT NULL, account
 
 class Account(object):
 
+    @staticmethod
+    def _current_time():
+        return pytz.utc.localize(datetime.datetime.utcnow())
+
     def __init__(self, name: str, bal: int = 0.0):
         cursor = db.execute("SELECT name, balance FROM Accounts WHERE (name = ?)", (name,))
         row = cursor.fetchone()
@@ -42,38 +46,50 @@ class Account(object):
             # self._balance += amount / 100
 
             new_balance = self._balance + amount
-            deposit_time = pytz.utc.localize(datetime.datetime.utcnow())
 
-            # update database tables
-            db.execute("UPDATE Accounts SET balance = ? where (name = ?)", (new_balance, self.name))
-            db.execute("INSERT INTO History VALUES (?, ?, ?)", (deposit_time, self.name, amount))
+            # update tables
+            self._save_update(new_balance)
 
-            # commit changes
-            db.commit()
-
-            # update class attribute
-            self._balance = new_balance
-
-            print("deposited €{:.2f}".format(amount / 100))
-        return self._balance / 100
+            print("deposited €{:.2f}".format(amount))
+        return self._balance
 
     def withdraw(self, amount: int) -> float:
         if 0 < amount <= self._balance:
-            self._balance -= amount / 100
-            print("withdrawn €{:.2f}".format(amount / 100))
-            return amount / 100
+            # self._balance -= amount / 100
+
+            new_balance = self._balance - amount
+
+            # update tables
+            self._save_update(new_balance)
+
+            print("withdrawn €{:.2f}".format(amount))
+            return amount
         else:
-            print("must withdraw between 0 and {:.2f}".format(self._balance))
+            print("must withdraw between 0 and €{:.2f}".format(self._balance))
 
     def show_balance(self):
-        print("Balance is currently {:.2f}".format(self._balance))
+        print("Balance is currently €{:.2f}".format(self._balance))
+
+    # refactored to its own method as common between both deposit and withdraw
+    def _save_update(self, amount):
+        deposit_time = self._current_time()
+
+        # update database tables
+        db.execute("UPDATE Accounts SET balance = ? where (name = ?)", (amount, self.name))
+        db.execute("INSERT INTO History VALUES (?, ?, ?)", (deposit_time, self.name, amount))
+
+        # commit changes
+        db.commit()
+
+        # update class attribute
+        self._balance = amount
 
 
 if __name__ == '__main__':
     Tim = Account("Tim")
-    Tim.deposit(5200)
-    Tim.deposit(52)
-    Tim.deposit(100)
+    Tim.deposit(1000)
+    Tim.deposit(50)
+    Tim.deposit(200)
     Tim.show_balance()
-    Tim.withdraw(748)
+    Tim.withdraw(750)
     Tim.show_balance()
