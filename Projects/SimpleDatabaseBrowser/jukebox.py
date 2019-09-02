@@ -14,6 +14,24 @@ import tkinter
 
 db_connection = sqlite3.connect('music.db')
 
+
+class ScrollBox(tkinter.Listbox):
+
+    """
+    condensed scrollbar code for list boxes into class that subclasses listbox
+    """
+
+    def __init__(self, window, **kwargs):
+        super().__init__(window, **kwargs)
+
+        self.scrollbar = tkinter.Scrollbar(window, orient=tkinter.VERTICAL, command=self.yview)
+
+    def grid(self, row, column, sticky='nse', rowspan=1, columnspan=1, **kwargs):
+        super().grid(row=row, column=column, sticky=sticky, rowspan=rowspan, columnspan=columnspan, **kwargs)
+        self.scrollbar.grid(row=row, column=column, sticky='nse', rowspan=rowspan)
+        self['yscrollcommand'] = self.scrollbar.set
+
+
 mainWindow = tkinter.Tk()
 mainWindow.title("Music DB Browser")
 
@@ -38,29 +56,22 @@ tkinter.Label(mainWindow, text='Songs').grid(row=0, column=2)
 
 
 #       Artists Listbox
-artist_list = tkinter.Listbox(mainWindow)
+artist_list = ScrollBox(mainWindow)
 artist_list.grid(row=1, column=0, sticky='nsew', rowspan=2, padx=(30, 0))
 artist_list.config(border=2, relief='sunken')
-
-artist_scroll = tkinter.Scrollbar(mainWindow, orient=tkinter.VERTICAL, command=artist_list.yview)
-artist_scroll.grid(row=1, column=0, sticky='nse', rowspan=2)
-artist_list['yscrollcommand'] = artist_scroll.set
 
 #       Album Listbox
 album_lv = tkinter.Variable(mainWindow)
 album_lv.set(("Choose an Artist",))
-album_list = tkinter.Listbox(mainWindow, listvariable=album_lv)
+album_list = ScrollBox(mainWindow, listvariable=album_lv)
 album_list.grid(row=1, column=1, sticky='nsew', padx=(30, 0))
 album_list.config(border=2, relief='sunken')
 
-album_scroll = tkinter.Scrollbar(mainWindow, orient=tkinter.VERTICAL, command=album_list.yview)
-album_scroll.grid(row=1, column=1, sticky='nse', rowspan=2)
-album_list['yscrollcommand'] = album_scroll.set
 
 #       Song Listbox
 song_lv = tkinter.Variable(mainWindow)
 song_lv.set(("Choose a Album",))
-song_list = tkinter.Listbox(mainWindow, listvariable=song_lv)
+song_list = ScrollBox(mainWindow, listvariable=song_lv)
 song_list.grid(row=1, column=2, sticky='nsew', padx=(30, 0))
 song_list.config(border=2, relief='sunken')
 
