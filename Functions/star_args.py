@@ -35,11 +35,27 @@ def build_tuple(*args):
 
 
 # **kwargs unpacks a dictionary of named arguments - similar to star args but with named parameters
-def print_backwards(*args, **kwargs):
-    print(type(kwargs))                     # dict
 
-    for word in args[::-1]:
-        print(word[::-1], end=' ', **kwargs)
+# one way to handle if the function call also calls a named parameter - multiple values for keyword argument
+# def print_backwards(*args, end=' ', **kwargs):
+
+def print_backwards(*args, **kwargs):
+    # print(type(kwargs))                     # dict
+
+    # another way to stop the multiple values for keyword argument
+    # remove the end key from the kwargs dictionary
+    end_char = kwargs.pop('end', '\n')
+
+    # subverting the named parameters to allow proper execution
+    sep_char = kwargs.pop('sep', ' ')
+
+    for word in args[:0:-1]:
+        print(word[::-1], end=sep_char, **kwargs)
+
+    # print(end=end_char)
+
+    # print the first word separately
+    print(args[0][::-1], end=end_char, **kwargs)
 
 
 if __name__ == '__main__':
@@ -53,5 +69,9 @@ if __name__ == '__main__':
     # print(type(message))
     # print(message)
 
-with open ('file.txt', 'w') as backwards:
-    print_backwards("hello", "planet", "earth", "take", "me", "to", "your", "leader", file=backwards)
+with open('file.txt', 'w') as backwards:
+    print_backwards("hello", "planet", "earth", "take", "me", "to", "your", "leader", end="\n")
+
+print()
+print("hello", "planet", "earth", "take", "me", "to", "your", "leader", end='', sep='\n**\n')
+print_backwards("hello", "planet", "earth", "take", "me", "to", "your", "leader", end='', sep='\n**\n')
