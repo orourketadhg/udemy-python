@@ -23,9 +23,15 @@ def my_range(n: int):
         start += 1
 
 
+# = not the best idea to assign a generator object to a variable - does not reset automatically if overrode by a variable ====
+
 # big_range = range(5)
 # create a link to the generator - does not start the function
 big_range = my_range(5)
+
+# will iterate over the generators iterable object
+# __next__() iterates over an iterable object - first value
+print(big_range.__next__())
 
 print("big_range is {} bytes".format(sys.getsizeof(big_range)))
 
@@ -38,4 +44,3 @@ print("big_list is {} bytes".format(sys.getsizeof(big_list)))
 
 print(big_range)
 print(big_list)
-
