@@ -10,8 +10,8 @@ __date__ = "05/09/2019"
 
 
 # generates n odd numbers
-def odd_gen():
 # def odd_gen(n: int):
+def odd_gen():
     current = 1
 
     # while current <= n:
