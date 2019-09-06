@@ -23,4 +23,3 @@ centre_text('spam, spam and eggs')
 centre_text('12')
 centre_text('spam, spam, spam and spam')
 centre_text("fist", "second", 3, 4, "fifth")
-
