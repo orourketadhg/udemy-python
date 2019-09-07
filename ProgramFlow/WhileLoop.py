@@ -12,7 +12,7 @@
 #
 # while chosenExit not in availableExits:
 #     chosenExit = input('>>>')
-#     if chosenExit == 'exit':
+#     if chosenExit == 'xit':
 #         print('exiting')
 #         break
 # else:

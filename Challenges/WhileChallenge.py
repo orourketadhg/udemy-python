@@ -12,7 +12,7 @@ print("Please guess a number between 1 and {}".format(highest))
 guess = int(input('>>>'))
 
 while guess != answer:
-    # if guess is 0 exit
+    # if guess is 0 xit
     if guess == 0:
         print('exiting')
         break

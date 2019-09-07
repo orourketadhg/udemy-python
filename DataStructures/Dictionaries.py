@@ -47,7 +47,7 @@ fruit = {"orange": "a sweet, orange, citrus fruit",
 #     #     description = fruit[dictKey]
 #     #     print(description)
 #     # else:
-#     #     print("{} does not exit".format(dictKey))
+#     #     print("{} does not xit".format(dictKey))
 #
 #     # alternative way to check if key exists
 #     description = fruit.get(dictKey, "we don't have a " + dictKey)
